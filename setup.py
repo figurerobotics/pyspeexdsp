@@ -3,6 +3,10 @@ from setuptools import Extension, find_packages, setup
 
 pybind11_include = pybind11.get_include()
 
+# Read the requirements from requirements.txt
+with open("requirements.txt") as f:
+    requirements = f.read().splitlines()
+
 ext_modules = [
     Extension(
         "pyspeexdsp.pyspeexdsp",
@@ -37,6 +41,10 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     ext_modules=ext_modules,
+    install_requires=requirements,
+    extras_require={
+        "dev": ["invoke"],  # Optional development dependencies
+    },
     zip_safe=False,
     include_package_data=True,
     classifiers=[
